@@ -4,18 +4,13 @@ dotenv.config();
 import * as database from "./config/database";
 database.connect();
 
-import { Task } from "./models/task.model";
-
 const app: Express = express(); 
 const port: number = 3000;
 
-app.get("/tasks", async (req: Request, res: Response) => {
-    const tasks = await Task.find({
-        deleted: false
-    });
+import { routesClient } from "./routes/client/index.route";
 
-    res.json(tasks);
-});
+
+routesClient(app);
 
 
 app.listen(port, () => {
