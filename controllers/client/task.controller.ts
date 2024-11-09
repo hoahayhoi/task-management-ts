@@ -13,15 +13,31 @@ export const index = async (req: Request, res: Response) => {
     //Sort 
     const sort = {};
     if (req.query.sortKey && req.query.sortValue) {
-        sort[`${req.query.sortKey}`] = req.query.sortValue; 
+        sort[`${req.query.sortKey}`] = req.query.sortValue;
     }
     //End Sort 
 
+    // Pagination
+    let limitItems = 4;
+    let page = 1;
+
+    if (req.query.page) {
+        page = parseInt(`${req.query.page}`);
+    }
+
+    if (req.query.limit) {
+        limitItems = parseInt(`${req.query.limit}`);
+    }
+
+    const skip =  (page - 1) * limitItems;
+    // End Pagination
 
     const tasks = await Task
         .find(find)
+        .limit(limitItems)
+        .skip(skip)
         .sort(sort);
-        
+
     res.json(tasks);
 }
 
