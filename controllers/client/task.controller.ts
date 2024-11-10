@@ -29,7 +29,7 @@ export const index = async (req: Request, res: Response) => {
         limitItems = parseInt(`${req.query.limit}`);
     }
 
-    const skip =  (page - 1) * limitItems;
+    const skip = (page - 1) * limitItems;
     // End Pagination
 
     const tasks = await Task
@@ -56,14 +56,26 @@ export const changeMultiPatch = async (req: Request, res: Response) => {
     const ids = req.body.ids;
 
     await Task.updateMany({
-      _id: { $in: ids }
+        _id: { $in: ids }
     }, {
-      status: status
+        status: status
     });
-    
+
     res.json({
-      code: "success",
-      message: "Thành công!"
+        code: "success",
+        message: "Thành công!"
     })
-  }
+}
+
+export const createPost = async (req: Request, res: Response) => {
+    const data = req.body;
+    const task = new Task(data);
+    await task.save();
+
+    res.json({
+        code: "success",
+        message: "Tạo công việc thành công!",
+        data: task
+    });
+}
 
