@@ -60,10 +60,39 @@ export const login = async (req: Request, res: Response) => {
         });
         return;
     }
-    
+
     res.json({
         code: "success",
         message: "Đăng nhập thành công!",
         token: existUser.token
     })
+}
+
+export const profile = async (req: Request, res: Response) => {
+    const token = req.body.token;
+    if (!token) {
+        res.json({
+            code: "error",
+            message: "Vui lòng gửi kèm theo token!"
+        });
+        return;
+    }
+    const user = await User.findOne({
+        token: token,
+        deleted: false
+    }).select("id fullName email");
+
+    if (!user) {
+        res.json({
+            code: "error",
+            message: "Token không hợp lệ!"
+        });
+        return;
+    }
+    
+    res.json({
+        code: "success",
+        message: "Thành công!",
+        data: user
+    });
 }
