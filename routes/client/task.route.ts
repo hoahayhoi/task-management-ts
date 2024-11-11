@@ -12,5 +12,7 @@ router.patch("/change-multi", controller.changeMultiPatch);
 
 router.post("/create", controller.createPost);
 
+router.patch("/edit/:id", controller.editPatch);
+
 export const tasksRoute = router;
 

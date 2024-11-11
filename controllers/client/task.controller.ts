@@ -79,3 +79,15 @@ export const createPost = async (req: Request, res: Response) => {
     });
 }
 
+export const editPatch = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const data = req.body;
+    await Task.updateOne({
+      _id: id
+    }, data);
+    res.json({
+      code: "success",
+      message: "Cập nhật công việc thành công!"
+    });
+  }
+
