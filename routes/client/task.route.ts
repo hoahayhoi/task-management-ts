@@ -14,5 +14,7 @@ router.post("/create", controller.createPost);
 
 router.patch("/edit/:id", controller.editPatch);
 
+router.patch("/delete-multi", controller.deleteMultiPatch);
+
 export const tasksRoute = router;
 
