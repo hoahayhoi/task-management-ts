@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 import { routesClient } from "./routes/client/index.route";
 
 
+
 routesClient(app);
 
 
